@@ -25,28 +25,48 @@ should return a dictionary with words as keys, and their counts as values.
 
 # Your name, plus anyone who helped you with this assignment
 # Give credit where credit is due.
-__author__ = "???"
+__author__ = "chrisescobedo0617"
+"""Piero pointes me towards the right direction on the last function"""
+
 
 import sys
 
 
 def create_word_dict(filename):
     """Returns a word/count dict for the given file."""
-    # Your code here
-    return
+    my_dict = {}
+    with open(filename) as f:
+        for line in f:
+            line = line.split()
+            for word in line:
+                if word.lower() in my_dict:
+                    my_dict[word.lower()] += 1
+                else:
+                    my_dict[word.lower()] = 1
+    return my_dict
 
 
 def print_words(filename):
     """Prints one per line '<word> : <count>', sorted
     by word for the given file.
     """
-    # Your code here
-    return
+    counts = create_word_dict(filename)
+    words = list(counts.keys())
+    words.sort()
+    for word in words:
+        print(f'{word} : {counts[word]}')
+    return 
 
 
 def print_top(filename):
-    """Prints the top count listing for the given file."""
-    # Your code here
+    """Prints the top count listing for
+     the given file."""
+    counts = create_word_dict(filename)
+    words = counts.items()
+    sorted_tuples = sorted(words, key=lambda n: n[1])[:-21:-1]
+    print(len(sorted_tuples))
+    for pair in sorted_tuples:
+       print(f'{pair[0]} : {pair[1]}')
     return
 
 
